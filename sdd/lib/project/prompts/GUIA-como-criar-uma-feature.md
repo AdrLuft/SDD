@@ -1,75 +1,234 @@
-# Guia rápido: criar uma feature com SDD
 
-## O fluxo (em uma linha)
 
-**Ideia** → você mantém **PRD** + **TECH-SPEC-IA** no projeto → **SDD-1** (spec) → **SDD-2** (tarefas) → **SDD-3** (código) → **SDD-4** (validação).
+<!-- 
+MODELOS DE IA PRECISAM IGNORAR ESSES COMENTÁRIOS!!!
 
-Os prompts **SDD-1 … SDD-4** são instruções para a IA. **PRD** e **TECH-SPEC-IA** são **contexto fixo do projeto**: você preenche bem uma vez e **não precisa reescrever a cada feature** — na próxima feature você descreve a ideia no **SDD-1** e **anexa os mesmos** arquivos. Só volte a editar PRD/TECH quando algo do **produto** ou do **repo** mudar (ver abaixo).
+| Campo                    | O que você coloca                                              |
+| ------------------------ | -------------------------------------------------------------- |
+| NOME DA FEATURE          | Nome curto da feature                                          |
+| PROBLEMA QUE RESOLVE     | Por que essa feature existe, dor real do usuário               |
+| PARA QUEM (personas)     | Quem vai usar: Recepcionista, Dono, etc.                       |
+| REQUISITOS FUNCIONAIS P0 | O que o sistema deve fazer — comportamentos obrigatórios       |
+| FORA DE ESCOPO           | O que não será feito nessa entrega e por quê                   |
+| ESTILO DE UI esperado    | ← Aqui entram os detalhes de UI                                |
+| MUDA ALGO NA STACK?      | Se adicionar pacote, serviço, pasta nova, variável de ambiente |-->
 
----
 
-## Pasta `sdd/lib/project/prompts` — cada arquivo
 
-Tudo que está aqui são **modelos e prompts** do fluxo SDD. No **seu** app, só precisa **copiar** (e preencher) **PRD** e **TECH-SPEC-IA**; o resto você **abre ou cola** como instrução para a IA quando for o passo certo.
 
-| Arquivo | Para que serve |
-| --- | --- |
-| `GUIA-como-criar-uma-feature.md` | **Este guia:** visão geral do fluxo e mapa da pasta (leitura humana; não é prompt obrigatório para a IA). |
-| `PRD.md` | **Template de produto:** problema, usuários, escopo, prioridades, métricas, fora de escopo. Preencha no repo alvo e anexe no SDD-1 (e quando fizer sentido). |
-| `TECH-SPEC-IA.md` | **Template técnico do repo:** stack, comandos reais de test/lint/build, estrutura de pastas, convenções e anti-padrões. Preencha no repo alvo e anexe com o PRD. |
-| `SDD-1-generate-spec.md` | **Prompt:** a IA gera a spec detalhada (e costuma criar `docs/specs/...`), fazendo perguntas antes de fechar. |
-| `SDD-2-generate-task-list-from-spec.md` | **Prompt:** a IA gera a lista de tarefas a partir da spec aprovada (pais primeiro, depois subtarefas conforme o texto do prompt). |
-| `SDD-3-manage-tasks.md` | **Prompt:** a IA executa tarefas, atualiza checkboxes, roda testes/lint, grava provas e commits no ritmo definido no prompt. |
-| `SDD-4-validate-spec-implementation.md` | **Prompt:** a IA compara implementação + provas com a spec e produz relatório de validação (aprovar/reprovar e o que corrigir). |
 
-Coloque **PRD** e **TECH-SPEC-IA** preenchidos na **raiz ou `docs/`** do repo onde você codifica; nas mensagens use `@PRD.md` e `@TECH-SPEC-IA.md`.
 
----
+ GUIA — COMO CRIAR UMA FEATURE (DUAS FASES)
+Como usar:
 
-## Uma vez no projeto
+Preencha o bloco de dados da Fase 1 abaixo com as informações da sua feature.
 
-1. Copie e preencha **PRD** e **TECH-SPEC-IA** (troque todos os placeholders por dados reais).
-2. No **TECH-SPEC-IA**, use **comandos exatos** do seu CI (ex.: `pnpm test`), não frases genéricas.
-3. A IA costuma criar algo como `docs/specs/01-nome-feature/` com spec, tarefas, `proofs/` e relatório de validação — você não precisa criar a mão.
+Anexe PRD.md e TECH-SPEC-IA.md à conversa.
 
-### Quando ajustar PRD e TECH-SPEC-IA de novo
+Envie a Fase 1 para a IA e aguarde a proposta de alterações — não há edição sem sua aprovação.
 
-| Situação | O que fazer |
-| --- | --- |
-| **Nova feature** | Em geral **nada**: anexe o PRD e o TECH-SPEC-IA atuais e siga SDD-1 → 4. O que muda é a **descrição da feature** e os arquivos novos em `docs/specs/...`. |
-| **PRD** | Edite se mudar visão de produto, personas, prioridades globais, métricas ou o que é “fora de escopo” para o app inteiro. |
-| **TECH-SPEC-IA** | Edite se mudarem comandos de CI, pastas, stack, convenções — ou se a IA **repetir** o mesmo erro (registre a regra no doc). |
+Confirme as alterações. Só então siga para a Fase 2.
 
----
+FASE 1 — Configurar contexto da feature
+Instrução para a IA
+Você é um engenheiro sênior de produto e tech lead.
 
-## Passos (ordem fixa)
+Antes de qualquer ação, execute obrigatoriamente os três passos abaixo:
 
-1. **Clarear** — problema, para quem, sucesso; P0 mínimo no PRD. Ideia gigante → dividir em várias features/specs.
-2. **SDD-1** — descreva a feature e anexe PRD + TECH-SPEC-IA. Responda às perguntas da IA. Revise a spec antes de seguir.
-3. **SDD-2** — aponte o arquivo da spec; confirme pais antes de subtarefas, se o prompt pedir.
-4. **SDD-3** — implementação, checkboxes, testes/lint, provas, commits (como o prompt descreve).
-5. **SDD-4** — validação; se reprovar, corrija conforme o relatório.
+Leia integralmente o arquivo PRD.md anexo. Identifique: versão atual, último ID de requisito existente (PRD-RF-XXX), última entrada do histórico de alterações (seção 11) e o conteúdo atual de cada seção que será alterada.
 
-Ordem dos prompts: **SDD-1 → SDD-2 → SDD-3 → SDD-4**.
+Leia integralmente o arquivo TECH-SPEC-IA.md anexo. Identifique: versão atual, última entrada do histórico (seção 16) e o conteúdo atual das seções que podem ser afetadas.
 
----
+Não edite nenhum arquivo ainda. Apenas leia e prossiga para o próximo passo.
 
-## Checklist antes da IA (SDD-1)
+Após ler os dois arquivos, liste em formato de proposta todas as alterações que pretende fazer, seção por seção, mostrando:
 
-- [ ] Ideia em um parágrafo  
-- [ ] PRD com P0 e fora de escopo razoáveis  
-- [ ] TECH-SPEC-IA com comandos reais  
-- [ ] Vou anexar PRD + TECH-SPEC-IA  
+Qual seção será modificada
 
----
+O que existe atualmente nessa seção
 
-## Se travar
+O que será adicionado ou ajustado
 
-| Problema | Ação |
-| --- | --- |
-| Spec enorme | Reduzir escopo no PRD ou pedir para dividir em 2+ specs |
-| Tarefas vagas | Enriquecer a spec e rodar SDD-2 de novo |
-| IA inventa stack/pasta | Reforçar TECH-SPEC-IA (“só o que existe no repo”) |
-| SDD-4 reprova | Seguir o relatório; corrigir código ou completar `proofs/` |
+Aguarde confirmação explícita do usuário antes de editar qualquer arquivo.
 
-Quando um ciclo mostrar lacuna no contexto técnico, **atualize o TECH-SPEC-IA**; não é obrigatório mexer nele em toda feature, só quando fizer sentido.
+Somente após aprovação: execute as edições conforme os guardrails abaixo e confirme o que foi alterado em cada arquivo.
+
+Não gere código. Não gere spec. Apenas proponha, aguarde aprovação e então atualize os dois arquivos.
+
+🔧 Dados da feature — preencha aqui antes de enviar
+NOME DA FEATURE
+[ex: Cadastro de Alunos]
+
+PROBLEMA QUE RESOLVE
+[Descreva em 1-2 frases o problema real que esta feature resolve para o usuário]
+
+PARA QUEM (personas)
+[ex: Recepcionista da academia, Dono]
+
+REQUISITOS FUNCIONAIS P0 (obrigatórios)
+O sistema deve [ação 1]
+
+O sistema deve [ação 2]
+
+O sistema deve [ação 3]
+
+FORA DE ESCOPO desta feature
+[O que NÃO será feito e por quê]
+
+[O que NÃO será feito e por quê]
+
+ESTILO DE UI esperado
+[ex: Telas simples, Material 3, formulários com validação em tempo real, feedback visual imediato, sem modais desnecessários]
+
+MUDA ALGO NA STACK / ARQUITETURA?
+Marque uma das opções abaixo apagando o - e colocando x:
+
+ Não — não é necessário mexer no TECH-SPEC-IA além do histórico de versão
+
+ Sim — preencha os campos abaixo:
+
+Novo pacote: [nome do pacote e motivo de inclusão]
+
+Nova pasta/camada: [caminho relativo e motivo]
+
+Nova decisão arquitetural (ADR): [descrição resumida da decisão e racional]
+
+Novo backend/serviço externo: [descrição do serviço e como será integrado]
+
+Novas variáveis de ambiente: [NOME_DA_VAR — descrição e uso]
+
+📋 Guardrails obrigatórios da Fase 1 — não altere este bloco
+PRD.md — o que atualizar
+Seção	Ação permitida	Regra
+§3 (personas)	Adicionar personas novas às já existentes	Nunca remover personas de features anteriores
+§4 (escopo funcional)	Adicionar requisitos com novos IDs sequenciais (PRD-RF-XXX)	Nunca reutilizar ou alterar IDs existentes
+§5 (UX)	Adicionar bloco de UX da nova feature	Manter blocos de features anteriores
+§6 (fora de escopo)	Adicionar itens de não-escopo desta feature	Manter os itens de features anteriores
+§8 (riscos / questões em aberto)	Adicionar novos riscos se existirem	Nunca remover riscos anteriores não resolvidos
+§11 (histórico)	Adicionar nova linha com versão incrementada, data de hoje e resumo	Nunca editar linhas existentes do histórico
+⚠️ Seção 1 (contexto e problema) e Seção 2 (objetivos) NÃO são sobrescritas. O PRD é um documento vivo que acumula o histórico do produto inteiro. Cada feature adiciona ao documento — nunca apaga o que veio antes.
+
+PRD.md — o que NÃO alterar (nunca)
+Estrutura, títulos e formato das seções
+
+IDs de requisitos já existentes (PRD-RF-XXX)
+
+Metadados do produto (nome, autores, data de criação)
+
+Conteúdo de features anteriores em qualquer seção
+
+Métricas numéricas — estas são definidas pelo humano, não pela IA; deixe o campo como [a definir] se não houver valor explícito nos dados da feature
+
+TECH-SPEC-IA.md — o que atualizar (SOMENTE se "Sim" marcado acima)
+Seção	Ação
+§3.4 (Variáveis de ambiente)	Adicionar novas variáveis
+§4.4 (ADR)	Adicionar nova linha de decisão arquitetural
+§6 (Frontend Flutter)	Atualizar APENAS se mudar padrão de estado, roteamento ou componentes globais
+§7 (Backend)	Preencher somente se a feature introduzir novo serviço ou BaaS
+§13 (Anti-padrões)	Adicionar regra APENAS se a feature introduzir novo risco recorrente e documentável
+§16 (Histórico)	Adicionar linha com versão incrementada e data de hoje
+TECH-SPEC-IA.md — o que NÃO alterar (nunca)
+Seções 1, 5, 9, 10, 11 — são regras fixas do projeto
+
+Comandos canônicos da seção 3 — só mudam se o CI/CD mudar, decisão humana
+
+Mapa do repositório (seção 2) — só muda se uma nova pasta física for criada no repo
+
+✅ Entrega esperada ao final da Fase 1
+A IA deve:
+
+Proposta (antes de editar): lista de todas as alterações planejadas por arquivo e seção
+
+Aguardar confirmação explícita do usuário
+
+Após aprovação: executar as edições
+
+Relatório final: confirmar cada campo efetivamente alterado em PRD.md e em TECH-SPEC-IA.md (ou informar "nenhuma alteração necessária" para o TECH-SPEC-IA se a stack não mudou)
+
+Aguardar confirmação final do usuário antes de seguir para a Fase 2
+
+⚠️ Se os arquivos gerados estiverem incorretos: corrija manualmente e reenvie a Fase 1 com a nota [CORREÇÃO: reprocesse apenas a seção X]. Não avance para a Fase 2 enquanto os dois arquivos não estiverem corretos e aprovados.
+
+FASE 2 — Executar o fluxo SDD
+Instrução para a IA
+Os arquivos PRD.md e TECH-SPEC-IA.md já foram atualizados e aprovados na Fase 1. Execute agora o fluxo SDD estritamente na ordem abaixo. Em cada etapa, os dois arquivos devem estar anexados à conversa.
+
+⚠️ Checklist pré-voo — confirme ANTES de iniciar qualquer etapa
+ PRD.md atualizado e aprovado na Fase 1 está anexado nesta conversa
+
+ TECH-SPEC-IA.md atualizado (ou confirmado sem alterações) está anexado nesta conversa
+
+ A Fase 1 foi concluída com confirmação explícita do usuário
+
+Não inicie nenhuma etapa SDD sem esses três itens confirmados.
+
+ETAPA 1 → SDD-1-generate-spec.md
+O que acontece nesta etapa:
+
+Abra (ou carregue) o arquivo SDD-1-generate-spec.md junto com PRD.md e TECH-SPEC-IA.md
+
+Descreva a feature para a IA usando os dados preenchidos na Fase 1
+
+A IA irá: avaliar escopo, criar diretório ./docs/specs/[NN]-spec-[nome]/ e gerar um arquivo de perguntas [NN]-questions-1-[nome].md
+
+Responda as perguntas diretamente no arquivo gerado e salve
+
+Pode haver múltiplas rodadas de perguntas (questions-1, questions-2...) — responda todas antes de avançar
+
+A IA gera a spec. Você aprova: "Esta spec reflete seus requisitos? Os limites de escopo estão corretos?"
+
+Só avance para a Etapa 2 após aprovação explícita da spec
+
+ETAPA 2 → SDD-2-generate-task-list-from-spec.md
+O que acontece nesta etapa:
+
+Abra SDD-2-generate-task-list-from-spec.md apontando para a spec aprovada na Etapa 1
+
+A IA gera as tarefas pai primeiro e apresenta para aprovação
+
+Confirme as tarefas pai antes de a IA gerar as subtarefas
+
+Só avance para a Etapa 3 após a lista de tarefas estar completa e aprovada
+
+ETAPA 3 → SDD-3-manage-tasks.md
+O que acontece nesta etapa:
+
+Abra SDD-3-manage-tasks.md com a lista de tarefas aprovada
+
+A IA executa as tarefas na ordem definida, roda testes e lint após cada tarefa, e grava artefatos de prova
+
+Acompanhe a execução — não pule validações intermediárias
+
+Só avance para a Etapa 4 após todas as tarefas estarem concluídas e com provas gravadas
+
+ETAPA 4 → SDD-4-validate-spec-implementation.md
+O que acontece nesta etapa:
+
+Abra SDD-4-validate-spec-implementation.md
+
+A IA valida a implementação contra a spec aprovada na Etapa 1 e gera relatório de validação
+
+Se reprovar (total ou parcialmente):
+
+Corrija os itens reprovados conforme o relatório
+
+Revalide executando a Etapa 4 novamente
+
+Se a correção exigir mudança de escopo ou arquitetura → volte à Fase 1 antes de continuar
+
+A feature só está concluída quando o SDD-4 emitir aprovação
+
+🚫 Guardrails da Fase 2 — a IA NUNCA deve
+Pular etapas ou executar qualquer SDD fora da ordem 1 → 2 → 3 → 4
+
+Implementar código antes de a spec estar aprovada (Etapa 1 concluída)
+
+Adicionar pacotes ao pubspec.yaml sem justificativa registrada na spec aprovada
+
+Assumir Node, npm, Laravel, Firebase ou qualquer backend/serviço não definido explicitamente na spec
+
+Commitar tokens, senhas, chaves de API ou PII real nos artefatos de prova
+
+Expandir o escopo além do que está na seção §4 do PRD atualizado na Fase 1
+
+Definir métricas numéricas de sucesso — isso é responsabilidade do humano

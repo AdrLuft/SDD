@@ -1,8 +1,40 @@
 # PRD — Product Requirements Document
 
-> **Uso:** Copie este arquivo para a raiz do projeto ou para `docs/` e preencha **antes** de rodar SDD-1.  
-> **Objetivo:** Fixar *problema, valor, escopo e sucesso* em nível de produto, para a spec de feature não “inventar” intenção nem prioridade.  
-> **Regra crítica:** O que não estiver escrito aqui (ou estiver vago) **será suposto** pela IA — e muitas vezes errado.
+> **Operacional — humanos e IA:** Este arquivo fixa **produto, escopo e intenção de UX**. Limites de **implementação no repositório** (comandos, pastas, stack, o que não existe ainda) estão em [`TECH-SPEC-IA.md`](./TECH-SPEC-IA.md). Para **ordem do fluxo** SDD-1 → SDD-4 e o papel de cada arquivo da pasta, use [`GUIA-como-criar-uma-feature.md`](./GUIA-como-criar-uma-feature.md). Em todo prompt SDD-1…SDD-4, **anexe PRD + TECH-SPEC-IA** junto da descrição da feature.
+
+### Nova feature: o que preencher neste PRD
+
+| Situação | O que fazer |
+| --- | --- |
+| **Mínimo** | Preencher seções **1–4** (contexto, objetivos, público, escopo funcional). |
+| **Recomendado** | Incluir **5** (experiência/conteúdo) e **6** (fora de escopo) quando mudarem o que pode ser codado ou priorizado. |
+| **Cadeia SDD** | Usar **§10** para alinhar o que o SDD-1 deve extrair e o checklist antes de codar. |
+
+### Mapa: onde definir cada tipo de regra
+
+| O que você quer definir | Arquivo | Seção ou nota |
+| --- | --- | --- |
+| Fluxo SDD e ordem dos prompts | `GUIA-como-criar-uma-feature.md` | Documento inteiro |
+| Spec detalhada da feature (artefato) | Saída do SDD-1 | Pastas sob `docs/specs/` (convênção em TECH-SPEC-IA §2) |
+| Objetivos, sucesso, métricas | `PRD.md` | §2 |
+| Escopo funcional e requisitos | `PRD.md` | §4 |
+| Critérios de aceite **de produto** (comportamento / negócio) | `PRD.md` | §2, §4 e §10.2 |
+| Definition of Done **técnica** (analyze, testes, provas, deps) | `TECH-SPEC-IA.md` | §10.3 |
+| Experiência, conteúdo, UX | `PRD.md` | §5 |
+| O que **não** implementar (scope guardrail) | `PRD.md` | §6 |
+| Integrações, dependências de negócio, compliance | `PRD.md` | §7 |
+| Riscos e decisões em aberto (produto) | `PRD.md` | §8 |
+| Como a IA deve **ler** e **priorizar** estes docs | `TECH-SPEC-IA.md` | §1 |
+| Arquitetura permitida, limites do repo | `TECH-SPEC-IA.md` | §4 (incl. §4.4 ADR) |
+| Backend, APIs, BaaS, auth server | `TECH-SPEC-IA.md` | §7 |
+| Toolchain, comandos canônicos | `TECH-SPEC-IA.md` | §3 |
+| Variáveis de ambiente | `TECH-SPEC-IA.md` | §3.4 |
+| Segurança obrigatória (dados, segredos, auth) | `TECH-SPEC-IA.md` | §9 |
+| Padrões de código e estilo | `TECH-SPEC-IA.md` | §5 |
+| Pacotes proibidos ou obrigatórios, erros recorrentes | `TECH-SPEC-IA.md` | §13 |
+| Git, CI/CD, release | `TECH-SPEC-IA.md` | §11 |
+
+**Regra geral:** guardrail de **produto ou escopo** → `PRD.md`. Guardrail **técnico ou do repositório** → `TECH-SPEC-IA.md`.
 
 ---
 
@@ -11,13 +43,13 @@
 | Campo | Valor |
 | --- | --- |
 | **Produto / sistema** | ERP genérico (primeiro caso: academia) |
-| **Versão do PRD** | 0.2 |
+| **Versão do PRD** | 0.3 |
 | **Status** | Em desenvolvimento. **Entrega em foco:** apenas auth (cadastro, login, recuperação de conta). |
-| **Data** | 04/04/2026 |
+| **Data** | 05/04/2026 |
 | **Autor(es)** | Adriano |
 | **Revisores / aprovadores** | N/A |
 | **Prazo desejado (se houver)** | N/A |
-| **Links** | TECH-SPEC-IA.md |
+| **Links** | `TECH-SPEC-IA.md`, `GUIA-como-criar-uma-feature.md` |
 
 ---
 
@@ -300,6 +332,7 @@ Ao gerar `./docs/specs/[NN]-spec-[nome]/`, a spec **deve** refletir:
 | --- | --- | --- | --- |
 | 0.1 | 04/04/2026 | Adriano | PRD inicial preenchido: ERP/academia, P0 identidade, RFs e fluxos |
 | 0.2 | 04/04/2026 | Adriano | Escopo da entrega atual: somente auth (cadastro, login, recuperação); RFs 006–009 removidos deste corte |
+| 0.3 | 05/04/2026 | Adriano | Cabeçalho operacional visível: mapa PRD/TECH/GUIA, separação aceite produto vs DoD técnica; remoção do guia em comentário HTML |
 
 ---
 

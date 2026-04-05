@@ -1,8 +1,25 @@
 # TECH-SPEC-IA — Especificação técnica para IA
 
-> **Uso:** Este arquivo vive em `sdd/lib/project/prompts/` junto aos prompts SDD. Para o **app**, copie trechos relevantes para a raiz do pacote Flutter (`sdd/`) ou `sdd/docs/` se quiser um único lugar “oficial” no repositório de código. Anexe **sempre** com o `PRD.md` ao rodar SDD-1…SDD-4.  
-> **Objetivo:** Reduzir alucinação ao amarrar **estrutura real deste repo**, **comandos Flutter/Dart** e **limites** (o que ainda não existe, ex.: backend de auth).  
-> **Regra crítica:** O que não estiver aqui (ou no código) **não é lei**. Não inventar API, pasta ou pacote.
+> **Leitura obrigatória (humanos e IA):** Este arquivo vive em `sdd/lib/project/prompts/` com os prompts SDD. **Anexe-o sempre com** [`PRD.md`](./PRD.md) ao rodar SDD-1…SDD-4. **Objetivo:** reduzir alucinação amarrando **estrutura real do repo**, **comandos Flutter/Dart** e **limites** (ex.: backend de auth ainda não definido no código). **Regra crítica:** o que não estiver aqui nem no código **não é lei** — não inventar API, pasta ou pacote. Em outro repositório de app, copie este arquivo (e o PRD) para a raiz do pacote ou `docs/` e ajuste paths e comandos. Fluxo e ordem dos passos: [`GUIA-como-criar-uma-feature.md`](./GUIA-como-criar-uma-feature.md).
+
+### O que costuma mudar quando entra uma feature nova
+
+| Alvo | Seção | Quando atualizar |
+| --- | --- | --- |
+| ADR (decisão arquitetural) | §4.4 | Nova escolha estável: roteamento, estado, BaaS, cliente HTTP, etc. |
+| Backend / contrato | §7 | A feature fixa serviço, endpoints, modelo de token ou provedor (ex.: auth). |
+| Variáveis de ambiente | §3.4 | Novas chaves, URLs ou integrações externas. |
+| Histórico deste documento | §16 | Sempre que mudar versão ou conteúdo relevante. |
+
+### Baseline do repositório (não “reescrever” a cada feature)
+
+As seções **1**, **4** (exceto acrescentar ADR em §4.4), **5**, **9**, **10**, **11** e **13** descrevem **política e limites** do projeto. Por feature você **cumpre** essas regras; não substitua o arquivo por um doc paralelo.
+
+**Quando mesmo assim editar:** se o time ou a IA **repetirem o mesmo erro**, adicione um bullet em **§13** (anti-padrões) ou refine **§5**. Se a **stack ou a segurança** mudarem, atualize as seções afetadas e **§16**.
+
+### Resumo
+
+Sem nova ADR em §4.4, sem mudança de backend em §7 e sem novas env vars em §3.4 → em geral **nenhuma alteração** neste arquivo; evoluem sobretudo a spec em `docs/specs/` e o código.
 
 ---
 
@@ -11,8 +28,8 @@
 | Campo | Valor |
 | --- | --- |
 | **Repositório** | SDD (workspace local `C:/Projetos/SDD`; app em `sdd/`) |
-| **Versão do doc** | 0.2 |
-| **Última atualização** | 2026-04-04 |
+| **Versão do doc** | 0.3 |
+| **Última atualização** | 2026-04-05 |
 | **Dono técnico** | Adriano |
 | **Stack principal** | Flutter (Dart SDK ^3.9.2) — app em `sdd/` |
 
@@ -289,6 +306,7 @@ Recomendado: [Conventional Commits](https://www.conventionalcommits.org/) em **p
 | --- | --- | --- | --- |
 | 0.1 | — | — | Template original |
 | 0.2 | 2026-04-04 | Adriano | Preenchido para repo SDD: Flutter `sdd/`, comandos reais, prompts path, auth sem backend no repo |
+| 0.3 | 2026-04-05 | Adriano | Cabeçalho operacional visível; política clara §4.4/§7/§3.4 vs baseline; remoção do guia em comentário HTML; links para PRD e GUIA |
 
 ---
 
