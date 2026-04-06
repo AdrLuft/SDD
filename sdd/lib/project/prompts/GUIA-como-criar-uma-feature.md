@@ -57,46 +57,64 @@ Não gere código. Não gere spec. Apenas proponha, aguarde aprovação e então
 
 🔧 Dados da feature — preencha aqui antes de enviar
 NOME DA FEATURE
-[ex: Cadastro de Alunos]
+Auth
 
 PROBLEMA QUE RESOLVE
-[Descreva em 1-2 frases o problema real que esta feature resolve para o usuário]
+Sem autenticação, qualquer pessoa acessa o sistema sem identidade,
+impossibilitando proteger dados, atribuir ações a usuários e evoluir
+para permissões por papel no ERP.
 
 PARA QUEM (personas)
-[ex: Recepcionista da academia, Dono]
+Dono da academia, Recepcionista, Instrutor
 
 REQUISITOS FUNCIONAIS P0 (obrigatórios)
-O sistema deve [ação 1]
-
-O sistema deve [ação 2]
-
-O sistema deve [ação 3]
+- O sistema deve permitir login com e-mail e senha
+- O sistema deve oferecer acesso ao fluxo de cadastro a partir da tela de login
+- O sistema deve oferecer recuperação de senha por e-mail a partir da tela de login
+- O sistema deve permitir cadastro com os campos: nome, e-mail, idade, sexo e senha
+- O sistema deve manter sessão ativa até logout explícito ou expiração
+- O sistema deve permitir logout que encerra a sessão no cliente e invalida no servidor
 
 FORA DE ESCOPO desta feature
-[O que NÃO será feito e por quê]
-
-[O que NÃO será feito e por quê]
+- Login social (Google, Apple) — será feature separada se priorizado
+- 2FA / biometria — complexidade desnecessária no MVP
+- Gestão de usuários por admin (convites, desativação) — feature futura
+- Qualquer tela ou módulo além dos fluxos de auth
 
 ESTILO DE UI esperado
-[ex: Telas simples, Material 3, formulários com validação em tempo real, feedback visual imediato, sem modais desnecessários]
+Material 3, paleta de cores neutra com um acento primário,
+formulários com validação em tempo real nos campos,
+feedback visual imediato (snackbar ou indicador inline para erros),
+botão primário único por tela, sem modais desnecessários,
+estado de loading visível no botão de submit durante requisições
 
 MUDA ALGO NA STACK / ARQUITETURA?
-Marque uma das opções abaixo apagando o - e colocando x:
+[x] Sim
 
- Não — não é necessário mexer no TECH-SPEC-IA além do histórico de versão
+Novo pacote: supabase_flutter — cliente oficial Supabase para auth e BaaS
+Novo pacote: get — gerenciamento de estado e navegação (GetX)
+Novo pacote: crypto — hash de dados sensíveis se necessário
+Novo pacote: validatorless — validação declarativa de formulários
+Novo pacote: flutter_secure_storage — persistência segura de tokens de sessão
 
- Sim — preencha os campos abaixo:
+Nova pasta/camada:
+lib/features/auth/ — feature de auth (Clean Architecture)
+lib/features/auth/data/
+lib/features/auth/domain/
+lib/features/auth/presentation/
 
-Novo pacote: [nome do pacote e motivo de inclusão]
+Nova decisão arquitetural (ADR):
+Adotar Clean Architecture como padrão do projeto:
+separação em data / domain / presentation por feature.
+Motivo: facilita manutenção, testabilidade e expansão para outros módulos do ERP.
 
-Nova pasta/camada: [caminho relativo e motivo]
+Novo backend/serviço externo:
+Supabase — BaaS para auth (cadastro, login, recuperação de senha, sessão).
+SDK: supabase_flutter.
 
-Nova decisão arquitetural (ADR): [descrição resumida da decisão e racional]
-
-Novo backend/serviço externo: [descrição do serviço e como será integrado]
-
-Novas variáveis de ambiente: [NOME_DA_VAR — descrição e uso]
-
+Novas variáveis de ambiente:
+SUPABASE_URL — URL do projeto Supabase
+SUPABASE_ANON_KEY — chave pública anon do Supabase
 📋 Guardrails obrigatórios da Fase 1 — não altere este bloco
 PRD.md — o que atualizar
 Seção	Ação permitida	Regra
@@ -148,6 +166,17 @@ Relatório final: confirmar cada campo efetivamente alterado em PRD.md e em TECH
 Aguardar confirmação final do usuário antes de seguir para a Fase 2
 
 ⚠️ Se os arquivos gerados estiverem incorretos: corrija manualmente e reenvie a Fase 1 com a nota [CORREÇÃO: reprocesse apenas a seção X]. Não avance para a Fase 2 enquanto os dois arquivos não estiverem corretos e aprovados.
+
+
+
+
+
+
+
+
+____________________________________________________________________________________
+
+########################################  FASE 2  ###################################################################
 
 FASE 2 — Executar o fluxo SDD
 Instrução para a IA
