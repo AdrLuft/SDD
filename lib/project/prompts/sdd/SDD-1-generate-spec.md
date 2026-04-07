@@ -12,44 +12,13 @@ meta:
 
 # Gerar especificação
 
-## Onde você está no fluxo de trabalho
-
-Estamos no **início** do fluxo de trabalho de desenvolvimento orientado por especificação (Spec-Driven Development). É aqui que transformamos uma ideia inicial numa especificação detalhada e acionável que guiará todo o processo de desenvolvimento.
-
-### Integração ao fluxo de trabalho
-
-Esta spec funciona como o **plano mestre** de todo o fluxo SDD:
-
-**Fluxo da cadeia de valor:**
-
-- **Ideia → Spec**: Transforma o conceito inicial em requisitos estruturados
-- **Spec → Tarefas**: Base para o planejamento da implementação
-- **Tarefas → Implementação**: Orienta uma abordagem de desenvolvimento estruturada
-- **Implementação → Validação**: A spec serve como critérios de aceite
-
-**Dependências críticas:**
-
-- **Histórias de usuário** viram base para artefatos de prova na geração de tarefas
-- **Requisitos funcionais** orientam a decomposição das tarefas de implementação
-- **Considerações técnicas** informam decisões de arquitetura e dependências
-- **Unidades demonstráveis** viram limites de tarefas pai na geração de tarefas
-
-**O que quebra a cadeia:**
-
-- Histórias de usuário vagas → artefatos de prova e limites de tarefa pouco claros
-- Requisitos funcionais ausentes → lacunas na cobertura da implementação
-- Considerações técnicas insuficientes → conflitos arquiteturais na implementação
-- Specs excessivamente grandes → decomposição de tarefas ingovernável e perda de progresso incremental
-
 ## Seu papel
 
-Você é um **Product Manager sênior e Tech Lead** com ampla experiência em elaboração de especificações de software. Sua expertise inclui levantamento de requisitos, gestão de escopo e criação de documentação clara e acionável para equipes de desenvolvimento.
+Você é um **Product Manager sênior e Tech Lead** especializado em especificações de software acionáveis.
 
 ## Objetivo
 
-Criar uma especificação (Spec) abrangente com base num input inicial do usuário. Esta spec será a única fonte da verdade para uma funcionalidade. A Spec deve ser clara o suficiente para um desenvolvedor júnior entender e implementar, com detalhe suficiente para planejamento e validação.
-
-Se o usuário não incluiu um input ou referência inicial para a spec, peça esse input antes de continuar.
+Criar a Spec que será a **fonte da verdade** da funcionalidade — clara para um dev júnior implementar. Se o input inicial não foi fornecido, solicite-o antes de continuar.
 
 ## Visão geral da geração da Spec
 
@@ -74,62 +43,21 @@ Crie a estrutura de diretório da spec antes de qualquer outra etapa. Assim todo
 
 ## Etapa 2: Avaliação de contexto
 
-Se estiver num projeto já existente, comece revisando brevemente o código e a documentação para entender:
-
-- Padrões e convenções arquiteturais atuais
-- Componentes ou funcionalidades existentes relevantes
-- Restrições ou dependências de integração
-- Arquivos que possam precisar de modificação ou extensão
-- **Padrões e normas do repositório**: Identifique padrões de código, arquitetura e práticas de desenvolvimento a partir de:
-  - Documentação do projeto (README.md, CONTRIBUTING.md, docs/)
-  - Documentação voltada a IA (AGENTS.md, CLAUDE.md)
-  - Arquivos de configuração (pubspec.yaml, etc.)
-  - Estrutura e convenções de nomenclatura do código existente (snake_case para arquivos Dart)
-  - Padrões de testes e garantia de qualidade
-
-**Use esse contexto para informar validação de escopo e requisitos, não para impor decisões técnicas.** Foque em entender o que existe para tornar a spec mais realista e alcançável, e garantir que qualquer implementação siga os padrões estabelecidos do repositório.
+Se já existir código, revise brevemente para entender: padrões arquiteturais, componentes reutilizáveis, restrições de integração, e normas do repositório (configs, nomenclatura, testes). Use esse contexto para tornar a spec realista — não para impor decisões técnicas.
 
 ## Etapa 3: Avaliação inicial de escopo
 
 Avalie se o pedido de funcionalidade tem tamanho adequado para este fluxo orientado por spec.
 
-**Raciocínio em cadeia:**
-
-- Considere a complexidade e o escopo da funcionalidade pedida
-- Compare com os exemplos abaixo
-- Use o contexto da Etapa 2 na avaliação
-- Se o escopo for grande demais, sugira dividir em specs menores
-- Se for pequeno demais, sugira implementação direta sem spec formal
+**Raciocínio em cadeia:** Considere complexidade, compare com exemplos e use o contexto da Etapa 2. Se grande demais, sugira dividir. Se pequeno demais, sugira implementação direta.
 
 **Exemplos de escopo:**
 
-**Grande demais (dividir em várias specs):**
+**Grande demais (dividir):** reescrever arquitetura inteira, migrar banco completo, implementar auth + módulos de negócio juntos, redesenhar toda a UI/UX.
 
-- Reescrever toda a arquitetura da aplicação ou o framework
-- Migrar um sistema de banco de dados completo para outra tecnologia
-- Refatorar vários módulos interligados ao mesmo tempo
-- Implementar autenticação + módulos de negócio (alunos, financeiro, estoque) numa entrega só
-- Construir uma arquitetura de microsserviços completa
-- Criar um painel administrativo inteiro com todas as funcionalidades
-- Redesenhar toda a UI/UX de uma aplicação
-- Implementar um sistema de relatórios abrangente com todos os widgets
+**Pequeno demais (sem cerimônia):** mudar cor de widget, adicionar import, corrigir off-by-one, atualizar documentação pontual.
 
-**Pequeno demais (implementar direto, sem cerimônia):**
-
-- Adicionar um único `print` para depuração
-- Mudar a cor de um widget no tema
-- Adicionar um import que faltava
-- Corrigir um erro simples de off-by-one num loop
-- Atualizar documentação de uma função existente
-
-**No ponto certo (ideal para este fluxo):**
-
-- Implementar um único fluxo de auth (cadastro, login e recuperação como spec única)
-- Adicionar uma nova tela com validação e navegação por GetX
-- Refatorar um módulo mantendo compatibilidade retroativa
-- Adicionar um novo widget integrado ao gerenciamento de estado existente
-- Criar uma única migração de banco com capacidade de rollback
-- Implementar uma história de usuário com fluxo ponta a ponta completo
+**No ponto certo:** implementar fluxo de auth completo, adicionar nova tela com validação e navegação, refatorar módulo com retrocompatibilidade, fluxo ponta a ponta de uma história de usuário.
 
 ### Reportar a avaliação de escopo ao usuário
 
@@ -138,9 +66,7 @@ Avalie se o pedido de funcionalidade tem tamanho adequado para este fluxo orient
 
 ## Etapa 4: Perguntas de esclarecimento
 
-Faça perguntas de esclarecimento para obter detalhe suficiente. Foque no "o quê" e no "porquê", não no "como".
-
-Use as áreas comuns abaixo para orientar as perguntas:
+Faça perguntas de esclarecimento para obter detalhe suficiente. Foque no "o quê" e no "porquê", não no "como". Use as áreas abaixo:
 
 **Compreensão central:**
 
@@ -158,12 +84,21 @@ Use as áreas comuns abaixo para orientar as perguntas:
 - Existem mockups de design ou diretrizes de UI a seguir?
 - Há restrições técnicas ou requisitos de integração?
 
+**Qualidade visual e UX (obrigatório):**
+
+- Qual o estilo visual esperado? (Material 3 estrito, customizado, outro)
+- Quais dispositivos/tamanhos de tela devem ser suportados?
+- Há paleta de cores, tipografia ou design system definido?
+- Quais padrões de feedback visual são esperados? (loading, erro, sucesso, vazio)
+- Há animações ou transições específicas?
+- O layout deve ser responsivo? Quais breakpoints?
+
 **Artefatos de prova:**
 
 - Que artefatos de prova vão demonstrar que a feature funciona (URLs, saída de CLI, capturas de tela)?
 - O que cada artefato vai demonstrar sobre a feature?
 
-**Divulgação progressiva:** Comece pela compreensão central e expanda conforme a complexidade da feature e as respostas do usuário.
+**Divulgação progressiva:** Comece pela compreensão central, depois qualidade visual, depois técnica. Expanda conforme complexidade e respostas.
 
 ### Formato do arquivo de perguntas
 
@@ -266,9 +201,33 @@ Gere uma especificação abrangente usando exatamente esta estrutura:
 2. [**Exclusão específica 2**: descrição]
 3. [**Exclusão específica 3**: descrição]
 
-## Considerações de design
+## Considerações de design (OBRIGATÓRIO)
 
-[Foque em requisitos de UI/UX e design visual. Linke mockups ou descreva requisitos de interface. Se não houver requisitos de design, declare "Nenhum requisito de design específico identificado."]
+[Esta seção é **obrigatória** — não pule. Defina com detalhe suficiente para um dev implementar sem dúvidas visuais.]
+
+### Estilo visual
+- Design system: [Material 3 / outro — especificar]
+- Paleta de cores: [cores primária, secundária, erro, fundo, superfície]
+- Tipografia: [fonte, tamanhos para título/corpo/caption]
+- Bordas e elevação: [border-radius padrão, uso de sombras/elevação]
+
+### Layout e responsividade
+- Largura máxima do conteúdo: [ex.: 480px para forms, tela cheia para listas]
+- Padding/margin padrão: [ex.: 16px horizontal, 24px entre seções]
+- Comportamento em telas pequenas (<360dp): [scroll, adaptar, truncar]
+- Comportamento em telas grandes/tablets: [centralizar, expandir, sidebar]
+
+### Componentes e padrões de UI
+- Formulários: [estilo dos inputs — outlined/filled, validação inline sim/não, botão submit — estilo e posição]
+- Feedback ao usuário: [snackbar/toast/inline para erros, loading no botão ou overlay, estados vazios]
+- Navegação: [appbar sim/não, back button, drawer/bottom nav]
+- Acessibilidade: [Semantics nos widgets interativos, contraste mínimo, foco visível em formulários]
+
+### Prevenção de problemas visuais
+- Todo layout que aceita conteúdo dinâmico DEVE usar `SingleChildScrollView` ou `ListView`
+- Inputs de texto DEVEM ter `maxLines` definido e não causar overflow
+- Botões DEVEM ter `minHeight: 48` para touch target adequado
+- Textos longos DEVEM ter `overflow: TextOverflow.ellipsis` ou wrap adequado
 
 ## Padrões do repositório
 
@@ -312,14 +271,7 @@ Se não houver considerações de segurança específicas, declare "Nenhuma cons
 
 ## Etapa 6: Revisão e refinamento
 
-Depois de gerar a spec, apresente-a ao usuário e pergunte:
-
-1. "Esta especificação reflete com precisão seus requisitos?"
-2. "Há detalhes faltando ou seções pouco claras?"
-3. "Os limites de escopo são adequados?"
-4. "As unidades demonstráveis representam progresso significativo?"
-
-Itere com base no feedback até o usuário ficar satisfeito.
+Depois de gerar a spec, pergunte: "Esta spec reflete seus requisitos? Os limites de escopo e as considerações de design estão adequados?" Itere até aprovação.
 
 ## Requisitos de saída
 

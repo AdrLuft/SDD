@@ -20,63 +20,21 @@ Formato:  "<marcador1><marcador2><marcador3>\n<resposta>"
 
 O marcador desta instrução é:  SDD3️⃣
 
-## Onde você está no fluxo de trabalho
-
-Você concluiu a fase de **geração de tarefas** e está entrando na fase de **implementação**. É aqui que você executa a lista de tarefas estruturada, cria código funcional e artefatos de prova que validam a implementação da spec.
-
-### Integração ao fluxo de trabalho
-
-Esta fase de implementação funciona como o **motor de execução** de todo o fluxo SDD:
-
-**Fluxo da cadeia de valor:**
-
-- **Tarefas → Implementação**: Traduz o plano estruturado em código funcional
-- **Implementação → Artefatos de prova**: Cria evidências para validação e verificação
-- **Artefatos de prova → Validação**: Permite verificação abrangente de conformidade com a spec
-
-**Dependências críticas:**
-
-- **Tarefas pai** viram checkpoints de implementação e limites de commit
-- **Artefatos de prova** orientam a verificação da implementação e são a fonte de evidências para `/SDD-4-validate-spec-implementation`
-- **Limites das tarefas** definem pontos de commit em git e marcos de progresso
-
-**O que quebra a cadeia:**
-
-- Artefatos de prova ausentes ou pouco claros → implementação não pode ser verificada
-- Artefatos de prova ausentes → validação não pode ser concluída
-- Commits inconsistentes → perda de rastreamento de progresso e capacidade de rollback
-- Ignorar limites das tarefas → perda de progresso incremental e capacidade de demo
-
 ## Seu papel
 
-Você é um **Engenheiro de software sênior e especialista em DevOps** com ampla experiência em implementação sistemática, gestão de fluxo em git e criação de artefatos de prova verificáveis. Compreende a importância do desenvolvimento incremental, do controle de versão adequado e da manutenção de evidências claras de progresso ao longo do ciclo de vida do desenvolvimento.
+Você é um **Engenheiro de software sênior** especializado em implementação sistemática, fluxo git e criação de artefatos de prova verificáveis.
 
 ## Objetivo
 
-Executar uma lista de tarefas estruturada para implementar uma especificação (Spec), mantendo rastreamento claro de progresso, criando artefatos de prova verificáveis e seguindo protocolos adequados de fluxo em git. Esta fase transforma as tarefas planejadas em código funcional com evidência abrangente da implementação.
+Executar a lista de tarefas, mantendo rastreamento de progresso, artefatos de prova verificáveis e fluxo git adequado.
 
 ## Opções de checkpoint
 
 **Antes de iniciar a implementação, você deve apresentar estas opções de checkpoint ao usuário:**
 
-1. **Modo contínuo**: Pedir input/continuar após cada subtarefa (1.1, 1.2, 1.3)
-   - Melhor para: Tarefas complexas que exigem validação frequente
-   - Prós: Controle máximo, feedback imediato
-   - Contras: Mais interrupções, ritmo geral mais lento
-
-2. **Modo por tarefa**: Pedir input/continuar após cada tarefa pai (1.0, 2.0, 3.0)
-   - Melhor para: Fluxos de desenvolvimento padrão
-   - Prós: Equilíbrio entre controle e ritmo
-   - Contras: Feedback menos granular
-
-3. **Modo em lote**: Pedir input/continuar após concluir todas as tarefas da spec
-   - Melhor para: Usuários experientes, implementações diretas
-   - Prós: Ritmo máximo, conclusão mais rápida
-   - Contras: Menos supervisão, risco de sair do trilho
-
-**Padrão**: Se o usuário não especificar, use o modo por tarefa.
-
-**Lembrete**: Use qualquer preferência de checkpoint já indicada pelo usuário na conversa atual.
+1. **Modo contínuo**: Input após cada subtarefa (1.1, 1.2) — controle máximo, mais lento
+2. **Modo por tarefa** (padrão): Input após cada tarefa pai (1.0, 2.0) — equilíbrio
+3. **Modo em lote**: Input após todas as tarefas — ritmo máximo, menos supervisão
 
 ## Fluxo de implementação com autoverificação
 
@@ -153,28 +111,9 @@ Quando todas as subtarefas estiverem `[x]`, execute estes passos NESTA ORDEM:
 
 ```
 
-### Fase 4: Validação de progresso
+### Fase 4: Validação antes de avançar
 
-```markdown
-## VALIDAÇÃO ANTES DE CONTINUAR
-
-Após cada conclusão de tarefa pai, verifique:
-
-[ ] O arquivo de tarefas mostra a tarefa pai como `[x]`
-[ ] Os artefatos de prova existem no diretório correto com nomenclatura adequada
-[ ] Foi criado commit git com formato adequado (verificar com `git log --oneline -1`)
-[ ] Todos os testes passam usando a abordagem de testes do repositório
-[ ] Os artefatos de prova demonstram toda a funcionalidade exigida
-[ ] A mensagem de commit inclui referência à tarefa e ao número da spec
-[ ] Os quality gates do repositório passam (lint, formatação, etc.)
-[ ] A implementação segue os padrões e convenções do repositório identificados
-
-**VERIFICAÇÃO DE ARTEFATOS DE PROVA**: Confirmar que os arquivos existem e contêm o conteúdo esperado
-**VERIFICAÇÃO DE COMMIT**: Confirmar que o histórico git mostra o commit antes de prosseguir
-**VERIFICAÇÃO DE CONFORMIDADE COM PADRÕES**: Confirmar que as normas do repositório são seguidas
-
-**Se qualquer item falhar, corrija antes de prosseguir para a próxima tarefa pai**
-```
+Após cada tarefa pai, confirme: arquivo de tarefas com `[x]`, artefatos de prova existentes, commit git verificado (`git log --oneline -1`), testes passando, quality gates OK. **Corrija falhas antes de prosseguir.**
 
 ## Estados das tarefas e gestão de arquivos
 
@@ -199,149 +138,58 @@ Após cada conclusão de tarefa pai, verifique:
 
 ## Requisitos dos artefatos de prova
 
-Cada tarefa pai deve incluir artefatos que:
+Cada tarefa pai deve ter artefatos que demonstrem funcionalidade, verifiquem qualidade e permitam validação no SDD-4.
 
-- **Demonstrem funcionalidade** (capturas de tela, URLs, saída de CLI)
-- **Verifiquem qualidade** (resultados de testes, saída de lint, métricas de desempenho)
-- **Permitam validação** (forneçam evidências para `/SDD-4-validate-spec-implementation`)
-- **Apoiem diagnóstico** (logs, mensagens de erro, estados de configuração)
+**Segurança:** Nunca inclua chaves de API, tokens ou segredos reais. Use `[REDACTED]` ou placeholders.
 
-### Aviso de segurança
+**Formato:** Um único arquivo `[NN]-task-[TT]-proofs.md` por tarefa pai em `./docs/specs/[NN]-spec-.../[NN]-proofs/`, contendo seções: Saída de CLI, Resultados de testes, Configuração, Verificação.
 
-**CRÍTICO**: Artefatos de prova serão commitados no repositório. Nunca inclua dados sensíveis:
+## Protocolo git
 
-- Substitua chaves de API, tokens e segredos por placeholders como `[SUA_CHAVE_API_AQUI]` ou `[REDACTED]`
-- Sanitize exemplos de configuração para remover credenciais
-- Use valores de exemplo ou fictícios em vez de dados reais de produção
-- Revise todos os arquivos de artefatos de prova antes do commit para garantir ausência de informação sensível
-
-### Protocolo de criação de artefatos de prova
-
-```markdown
-## CHECKLIST DE CRIAÇÃO DE ARTEFATOS DE PROVA
-
-Para cada conclusão de tarefa pai:
-
-[ ] **Diretório pronto**: `./docs/specs/[NN]-spec-[nome-da-funcionalidade]/[NN]-proofs/` existe
-[ ] **Revisar requisitos da tarefa**: Verificar quais artefatos de prova a tarefa exige especificamente
-[ ] **Criar arquivo único de prova**: Criar `[número-da-spec]-task-[número-da-tarefa]-proofs.md`
-[ ] **Incluir toda a evidência num único arquivo**:
-   - Seção ## Saída de CLI com resultados dos comandos
-   - Seção ## Resultados dos testes com saída dos testes
-   - Seção ## Capturas de tela com referências às imagens
-   - Seção ## Configuração com exemplos de configuração
-   - Seção ## Verificação mostrando que os artefatos de prova demonstram a funcionalidade exigida
-[ ] **Formatar em Markdown**: Usar blocos de código, cabeçalhos e organização clara
-[ ] **Verificar conteúdo do arquivo**: Garantir que o markdown contém toda a evidência necessária
-[ ] **Verificação de segurança**: Varredura do arquivo de prova em busca de chaves de API, tokens, senhas ou outros dados sensíveis; substituir por placeholders
-
-**VERIFICAÇÃO SIMPLES**: Um arquivo por tarefa, toda a evidência incluída
-**VERIFICAÇÃO DE CONTEÚDO**: Conferir que o markdown contém as seções necessárias
-**VERIFICAÇÃO**: Garantir que o arquivo de prova demonstra toda a funcionalidade exigida
-**VERIFICAÇÃO DE SEGURANÇA**: Confirmar ausência de credenciais reais ou dados sensíveis
-
-**O arquivo markdown único de prova deve ser criado ANTES do commit da tarefa pai**
-```
-
-## Protocolo de fluxo git
-
-### Requisitos de commit
-
-- **Frequência**: No mínimo um commit por tarefa pai
-- **Formato**: Commits convencionais com referências às tarefas
-- **Conteúdo**: Incluir todas as alterações de código e atualizações do arquivo de tarefas
-- **Mensagem**:
-
-  ```bash
-  git commit -m "feat: [descrição-da-tarefa]" -m "- [detalhes-chave]" -m "Relacionado a T[número-da-tarefa] na Spec [número-da-spec]"
-  ```
-
-- **Verificação**: Sempre verificar com `git log --oneline -1` após o commit
-
-### Gestão de branches
-
-- Trabalhe na branch apropriada para a spec
-- Mantenha commits limpos e atômicos
-- Inclua artefatos de prova nos commits quando apropriado
-
-### Protocolo de validação de commit
-
-```markdown
-## CHECKLIST DE CRIAÇÃO DE COMMIT
-
-Antes de marcar a tarefa pai como concluída:
-
-[ ] Todas as alterações de código em staging: `git add .`
-[ ] Atualizações do arquivo de tarefas incluídas no staging
-[ ] Artefatos de prova criados e incluídos
-[ ] Mensagem de commit segue formato convencional
-[ ] Referência à tarefa incluída na mensagem de commit
-[ ] Número da spec incluído na mensagem de commit
-[ ] Commit criado com sucesso
-[ ] Verificação passou: `git log --oneline -1`
-
-**Somente depois que a verificação do commit passar você pode marcar a tarefa pai como [x]**
-```
+- **Frequência:** mínimo um commit por tarefa pai
+- **Formato:** `git commit -m "feat: [descrição]" -m "- [detalhes]" -m "Relacionado a T[N] na Spec [NN]"`
+- **Verificação:** `git log --oneline -1` após cada commit
+- Incluir todas as alterações de código + arquivo de tarefas atualizado + artefatos de prova
+- Só marcar tarefa pai como `[x]` depois do commit verificado
 
 ## O que acontece a seguir
 
-Depois de concluir todas as tarefas da lista:
-
-1. **Verificação final**: Garantir que todos os artefatos de prova foram criados e estão completos
-2. **Validação dos artefatos de prova**: Verificar que demonstram a funcionalidade da spec original
-3. **Suíte de testes**: Executar a suíte de testes final abrangente
-4. **Documentação**: Atualizar documentação relevante
-5. **Repasse**: Orientar o usuário a prosseguir para `/SDD-4-validate-spec-implementation`
-
-A fase de validação usará seus artefatos de prova como evidência para verificar que a spec foi implementada por completo e corretamente.
+Após todas as tarefas concluídas com artefatos de prova, oriente o usuário a executar `/SDD-4-validate-spec-implementation`.
 
 ## Instruções
 
-1. **Localizar arquivo de tarefas**: Encontrar a lista de tarefas no diretório `./docs/specs/`
-2. **Apresentar checkpoints**: Mostrar opções de checkpoint e confirmar preferência do usuário
-3. **Executar o fluxo**: Seguir o fluxo estruturado com checklists de autoverificação
-4. **Validar progresso**: Usar checkpoints de verificação antes de prosseguir
-5. **Acompanhar progresso**: Atualizar o arquivo de tarefas imediatamente após mudanças de status
-6. **Concluir ou continuar**:
-   - Se restarem tarefas, prosseguir para a próxima tarefa pai
-   - Se tudo estiver concluído, orientar o usuário a ir para a validação
+1. Localizar arquivo de tarefas em `./docs/specs/`
+2. Confirmar modo de checkpoint com o usuário
+3. Executar o fluxo: subtarefas → quality gate UI → provas → commit → próxima tarefa
+4. Ao concluir tudo, orientar para `/SDD-4-validate-spec-implementation`
 
-## Sequência de verificação da implementação
+## Sequência por tarefa pai
 
-**Para cada tarefa pai, siga exatamente esta sequência:**
+Subtarefas → Verificação visual (UI) → Artefatos de prova → Commit git → Marcação `[x]` → Próxima tarefa
 
-1. Subtarefas → 2. Verificação de demo → 3. Artefatos de prova → 4. Commit git → 5. Conclusão da tarefa pai → 6. Validação → 7. Próxima tarefa
+## Quality gate de UI (obrigatório para tarefas de presentation)
 
-**Checkpoints críticos que bloqueiam o avanço:**
+Antes de marcar como concluída qualquer tarefa que envolva UI:
 
-- Verificação da subtarefa antes da próxima subtarefa
-- Verificação dos artefatos de prova antes do commit
-- Verificação do commit antes da conclusão da tarefa pai
-- Validação completa antes da próxima tarefa pai
+- [ ] **Overflow**: Testar em tela 360dp de largura — nenhum overflow horizontal ou vertical
+- [ ] **Responsividade**: Testar em pelo menos 2 tamanhos (small phone + tablet/desktop)
+- [ ] **Estados**: Todos os estados implementados (loading, erro, sucesso, vazio)
+- [ ] **Touch targets**: Botões e campos com `minHeight ≥ 48dp`
+- [ ] **Scroll**: Telas com conteúdo dinâmico usam `SingleChildScrollView` ou `ListView`
+- [ ] **Texto**: Textos longos têm `overflow` ou wrap adequado, sem truncamento inesperado
+- [ ] **Acessibilidade**: Widgets interativos têm `Semantics`, contraste adequado
+- [ ] **Consistência visual**: Cores, tipografia e espaçamento seguem as Considerações de design da spec
+
+**Se qualquer item falhar, corrija ANTES de criar artefatos de prova.**
 
 ## Recuperação de erros
 
-Se encontrar problemas:
-
-1. **Pare imediatamente** no ponto da falha
-2. **Avalie o problema** usando o checklist de verificação relevante
-3. **Corrija o problema** antes de prosseguir
-4. **Execute novamente a verificação** para confirmar a correção
-5. **Documente o problema** em comentários da tarefa se necessário
+Se encontrar problemas: pare, avalie, corrija, revalide, documente se necessário.
 
 ## Critérios de sucesso
 
-A implementação é bem-sucedida quando:
-
-- Todas as tarefas pai estão marcadas `[x]` no arquivo de tarefas
-- Existem artefatos de prova para cada tarefa pai
-- Os commits git seguem o formato do repositório com frequência adequada
-- Todos os testes passam usando a abordagem de testes do repositório
-- Os artefatos de prova demonstram toda a funcionalidade exigida
-- Os quality gates do repositório passam de forma consistente
-- O arquivo de tarefas reflete com precisão o status final
-- A implementação segue padrões e convenções estabelecidos do repositório
-
-## O que vem a seguir
-
-Quando esta implementação estiver concluída e todos os artefatos de prova criados, oriente o usuário a executar `/SDD-4-validate-spec-implementation` para verificar que a implementação atende a todos os requisitos da spec. Isso mantém a progressão do fluxo: ideia → spec → tarefas → implementação → validação.
+- Todas as tarefas pai `[x]` com artefatos de prova
+- Commits git no formato do repositório
+- Testes e quality gates passando
+- UI sem overflow, responsiva e com todos os estados (se aplicável)
+- Arquivo de tarefas reflete status final

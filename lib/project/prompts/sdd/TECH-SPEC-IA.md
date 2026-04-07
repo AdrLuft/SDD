@@ -28,8 +28,8 @@ Sem nova ADR em §4.4, sem mudança de backend em §7 e sem novas env vars em §
 | Campo | Valor |
 | --- | --- |
 | **Repositório** | Raiz do workspace (ex.: `C:/Projetos/<nome-do-projeto>`) |
-| **Versão do doc** | 0.5 |
-| **Última atualização** | 2026-04-06 |
+| **Versão do doc** | 0.6 |
+| **Última atualização** | 2026-04-07 |
 | **Dono técnico** | Adriano |
 | **Stack principal** | Flutter (Dart SDK — ver `pubspec.yaml` → `environment.sdk`) |
 
@@ -54,6 +54,7 @@ Sem nova ADR em §4.4, sem mudança de backend em §7 e sem novas env vars em §
 | `.` (raiz) | Raiz do **pacote Flutter** (`pubspec.yaml`, `lib/`, `test/`, `android/`). É aqui que se roda `flutter pub get`, `flutter test`, etc. |
 | `lib/` | Código Dart do app (`main.dart` e futuras features). |
 | `lib/prompts/` | Prompts SDD, **PRD.md**, **TECH-SPEC-IA.md** (este arquivo). |
+| `lib/features/auth/` | Feature de autenticação: `auth/data/`, `auth/domain/`, `auth/presentation/` (Clean Architecture). Criada durante SDD-2. |
 | `test/` | Testes (`flutter_test`). |
 | `docs/specs/` | **Criar quando necessário:** specs SDD (`[NN]-spec-.../`), tarefas, `proofs/`. |
 
@@ -315,6 +316,7 @@ Recomendado: [Conventional Commits](https://www.conventionalcommits.org/) em **p
 | 0.3 | 2026-04-05 | Adriano | Cabeçalho operacional visível; política clara seção 4.4/7/3.4 vs baseline; remoção do guia em comentário HTML; links para PRD e GUIA |
 | 0.4 | 2026-04-06 | Adriano | Inclusão da feature de autenticação: variáveis de ambiente, ADRs 002–003, Supabase e persistência segura |
 | 0.5 | 2026-04-06 | Adriano | Correção de todos os paths (remover prefixo `sdd/`), atualização de arquitetura para Clean Architecture, novos anti-padrões |
+| 0.6 | 2026-04-07 | Adriano | Fase 1 aprovada: estrutura `lib/features/auth/` explicitamente mapeada; pronto para implementação em SDD-1 |
 
 ---
 

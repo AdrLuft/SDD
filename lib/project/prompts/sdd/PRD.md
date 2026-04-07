@@ -48,9 +48,9 @@
 | Campo | Valor |
 | --- | --- |
 | **Produto / sistema** | ERP genérico (primeiro caso: academia) |
-| **Versão do PRD** | 0.4 |
-| **Status** | Em desenvolvimento. **Entrega em foco:** apenas auth (cadastro, login, recuperação de conta). |
-| **Data** | 06/04/2026 |
+| **Versão do PRD** | 0.5 |
+| **Status** | Em desenvolvimento. **Entrega em foco:** apenas auth (cadastro, login, recuperação de conta). Fase 1 aprovada. |
+| **Data** | 07/04/2026 |
 | **Autor(es)** | Adriano |
 | **Revisores / aprovadores** | N/A |
 | **Prazo desejado (se houver)** | N/A |
@@ -333,7 +333,10 @@ Ao gerar `./docs/specs/[NN]-spec-[nome]/`, a spec **deve** refletir:
 | 0.1 | 04/04/2026 | Adriano | PRD inicial preenchido: ERP/academia, P0 identidade, RFs e fluxos |
 | 0.2 | 04/04/2026 | Adriano | Escopo da entrega atual: somente auth (cadastro, login, recuperação) |
 | 0.3 | 05/04/2026 | Adriano | Cabeçalho operacional visível: mapa PRD/TECH/GUIA, separação aceite produto vs DoD técnica |
-| 0.4 | 06/04/2026 | Adriano | Inclusão da feature de autenticação: novas personas, UX e riscos; remoção dos RFs duplicados 006–008; campos obrigatórios movidos para notas do RF-001; seções de guia humano movidas para PRD-GUIA-HUMANO.md |---
+| 0.4 | 06/04/2026 | Adriano | Inclusão da feature de autenticação: novas personas, UX e riscos; remoção dos RFs duplicados 006–008; campos obrigatórios movidos para notas do RF-001; seções de guia humano movidas para PRD-GUIA-HUMANO.md |
+| 0.5 | 07/04/2026 | Adriano | Fase 1 aprovada: Feature Auth confirmada com Clean Architecture e Supabase; pronto para SDD-1 |
+
+---
 
 ### Checklist crítico (autoavaliação honesta)
 

@@ -91,6 +91,52 @@ feedback visual imediato (snackbar ou indicador inline para erros),
 botão primário único por tela, sem modais desnecessários,
 estado de loading visível no botão de submit durante requisições
 
+ESPECIFICAÇÃO VISUAL DETALHADA (preencha o máximo possível)
+
+Paleta de cores:
+  - Cor primária (hex ou nome): [ex.: #1E88E5 / azul]
+  - Cor secundária: [ex.: #FFC107 / âmbar]
+  - Cor de fundo: [ex.: #FAFAFA]
+  - Cor de superfície (cards/forms): [ex.: #FFFFFF]
+  - Cor de erro: [ex.: #D32F2F]
+  - Cor de sucesso: [ex.: #388E3C]
+
+Tipografia:
+  - Fonte principal: [ex.: Roboto / Poppins / Inter / padrão Material]
+  - Tamanho título: [ex.: 24sp]
+  - Tamanho corpo: [ex.: 16sp]
+  - Tamanho caption: [ex.: 12sp]
+
+Layout e espaçamento:
+  - Padding horizontal das telas: [ex.: 24px]
+  - Espaçamento entre seções: [ex.: 24px]
+  - Espaçamento entre campos de form: [ex.: 16px]
+  - Largura máxima do conteúdo (se centralizar em telas grandes): [ex.: 480px]
+  - Border radius padrão (cards, botões, inputs): [ex.: 12px]
+
+Componentes:
+  - Estilo dos inputs: [filled / outlined / underline]
+  - Estilo do botão primário: [filled / elevated / tonal]
+  - Altura mínima dos botões: [ex.: 48dp]
+  - Ícones nos campos de input: [sim, prefixo / sim, sufixo / não]
+  - AppBar: [com título centralizado / com logo / sem AppBar]
+
+Feedback visual:
+  - Erros de validação: [inline abaixo do campo / snackbar / dialog]
+  - Loading durante submit: [indicador no botão / overlay na tela / ambos]
+  - Sucesso: [navega direto / snackbar + navega / dialog]
+  - Estado vazio: [ilustração + texto / só texto / widget dedicado]
+
+Responsividade:
+  - Tela mínima suportada: [ex.: 360dp largura]
+  - Comportamento em tablets: [centralizar form / expandir layout / sidebar]
+  - Scroll: [telas que podem ultrapassar viewport DEVEM ter scroll]
+
+Acessibilidade:
+  - Labels nos campos: [sempre visíveis / floating / placeholder only — NÃO usar só placeholder]
+  - Contraste mínimo: [WCAG AA = 4.5:1]
+  - Semantics em widgets interativos: [obrigatório]
+
 MUDA ALGO NA STACK / ARQUITETURA?
 [x] Sim
 
@@ -155,6 +201,10 @@ lib/
 | 4 | Misturar camadas (ex.: chamar data source direto da presentation) | A presentation chama use cases (domain), que chamam repositórios (data) — nunca pular camadas |
 | 5 | Gerar um único arquivo monolítico com toda a feature | Cada classe em seu próprio arquivo, organizada na camada correta |
 | 6 | Adicionar pacote ao `pubspec.yaml` sem justificativa na spec | Todo pacote novo precisa estar declarado nos dados da feature ou na spec aprovada |
+| 7 | Criar tela sem `SingleChildScrollView` ou `ListView` | Todo layout com conteúdo dinâmico DEVE ter scroll para evitar overflow |
+| 8 | Criar botão/campo sem altura mínima de 48dp | Touch targets pequenos prejudicam usabilidade mobile |
+| 9 | Criar tela sem implementar TODOS os estados (loading, erro, sucesso, vazio) | Telas incompletas geram bugs visuais e UX ruim |
+| 10 | Usar apenas placeholder como label de campo (sem label flutuante/fixa) | Acessibilidade exige labels permanentemente visíveis |
 
 ### Camadas e responsabilidades
 
@@ -182,12 +232,14 @@ lib/
 | --- | --- | --- |
 | §3 (personas) | Adicionar personas novas às já existentes | Nunca remover personas de features anteriores |
 | §4 (escopo funcional) | Adicionar requisitos com novos IDs sequenciais (`PRD-RF-XXX`) | Nunca reutilizar ou alterar IDs existentes |
-| §5 (UX) | Adicionar bloco de UX da nova feature | Manter blocos de features anteriores |
+| §5 (UX) | Adicionar bloco de UX da nova feature com base na ESPECIFICAÇÃO VISUAL DETALHADA dos dados da feature | Manter blocos de features anteriores. Transferir cores, tipografia, espaçamento e componentes definidos pelo usuário |
 | §6 (fora de escopo) | Adicionar itens de não-escopo desta feature | Manter os itens de features anteriores |
 | §8 (riscos / questões em aberto) | Adicionar novos riscos se existirem | Nunca remover riscos anteriores não resolvidos |
 | §11 (histórico) | Adicionar nova linha com versão incrementada, data de hoje e resumo | Nunca editar linhas existentes do histórico |
 
 ⚠️ **Seção 1 (contexto e problema) e Seção 2 (objetivos) NÃO são sobrescritas.** O PRD é um documento vivo que acumula o histórico do produto inteiro. Cada feature adiciona ao documento — nunca apaga o que veio antes.
+
+⚠️ **ESPECIFICAÇÃO VISUAL DETALHADA é obrigatória.** Se o campo estiver vazio ou com apenas "[ex.: ...]", a IA DEVE perguntar ao usuário antes de propor alterações. UI genérica ou "Material 3 padrão" sem detalhamento gera telas simplistas.
 
 ### PRD.md — o que NÃO alterar (nunca)
 

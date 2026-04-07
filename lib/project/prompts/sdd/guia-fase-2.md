@@ -26,9 +26,10 @@ Os arquivos `PRD.md` e `TECH-SPEC-IA.md` já foram atualizados e aprovados na Fa
 2. Descreva a feature para a IA usando os dados preenchidos na Fase 1
 3. A IA irá: avaliar escopo, criar diretório `./docs/specs/[NN]-spec-[nome]/` e gerar um arquivo de perguntas `[NN]-questions-1-[nome].md`
 4. Responda as perguntas diretamente no arquivo gerado e salve
-5. Pode haver múltiplas rodadas de perguntas (questions-1, questions-2...) — responda todas antes de avançar
-6. A IA gera a spec. Você aprova: "Esta spec reflete seus requisitos? Os limites de escopo estão corretos?"
-7. **Só avance para a Etapa 2 após aprovação explícita da spec**
+5. Pode haver múltiplas rodadas de perguntas (questions-1, questions-2...) — **perguntas sobre UI/design são obrigatórias** — responda todas antes de avançar
+6. A IA gera a spec. Você aprova: "Esta spec reflete seus requisitos? Os limites de escopo e as **considerações de design** estão corretos?"
+7. **Verifique que a seção "Considerações de design" da spec está completa** (cores, tipografia, layout, componentes, estados, responsividade)
+8. **Só avance para a Etapa 2 após aprovação explícita da spec**
 
 ---
 
@@ -49,8 +50,9 @@ Os arquivos `PRD.md` e `TECH-SPEC-IA.md` já foram atualizados e aprovados na Fa
 
 1. Abra `SDD-3-manage-tasks.md` com a lista de tarefas aprovada
 2. A IA executa as tarefas na ordem definida, roda testes e lint após cada tarefa, e grava artefatos de prova
-3. Acompanhe a execução — não pule validações intermediárias
-4. **Só avance para a Etapa 4 após todas as tarefas estarem concluídas e com provas gravadas**
+3. **Para tarefas de UI:** a IA DEVE executar o quality gate visual (overflow, responsividade, estados) antes de marcar como concluída
+4. Acompanhe a execução — não pule validações intermediárias
+5. **Só avance para a Etapa 4 após todas as tarefas estarem concluídas e com provas gravadas**
 
 ---
 
@@ -79,3 +81,7 @@ Os arquivos `PRD.md` e `TECH-SPEC-IA.md` já foram atualizados e aprovados na Fa
 - Definir métricas numéricas de sucesso — isso é responsabilidade do humano
 - Criar arquivos de implementação em `bin/` — esta pasta é apenas para scripts CLI auxiliares
 - Criar telas soltas em `lib/screens/` — toda feature deve seguir Clean Architecture em `lib/features/<nome>/`
+- Criar telas sem scroll em layouts com conteúdo dinâmico — usar `SingleChildScrollView` ou `ListView`
+- Criar telas sem implementar TODOS os estados visuais (loading, erro, sucesso, vazio)
+- Ignorar a seção "Considerações de design" da spec ao implementar UI — cores, tipografia, espaçamento e componentes DEVEM seguir o especificado
+- Marcar tarefa de UI como concluída sem executar o quality gate visual (overflow, responsividade, estados, acessibilidade)

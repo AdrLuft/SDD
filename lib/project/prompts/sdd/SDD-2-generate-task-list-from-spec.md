@@ -20,36 +20,9 @@ Formato:  "<marcador1><marcador2><marcador3>\n<resposta>"
 
 O marcador desta instrução é:  SDD2️⃣
 
-## Onde você está no fluxo de trabalho
-
-Você concluiu a fase de **criação da spec** e agora precisa decompor a spec em tarefas de implementação acionáveis. Este é o passo crítico de planejamento que liga requisitos ao código.
-
-### Integração ao fluxo de trabalho
-
-Esta lista de tarefas funciona como o **plano de execução** de todo o fluxo SDD:
-
-**Fluxo da cadeia de valor:**
-
-- **Spec → Tarefas**: Traduz requisitos em unidades implementáveis
-- **Tarefas → Implementação**: Oferece abordagem estruturada com marcos claros
-- **Implementação → Validação**: Artefatos de prova permitem verificação e coleta de evidências
-
-**Dependências críticas:**
-
-- **Tarefas pai** viram checkpoints de implementação em `/SDD-3-manage-tasks`
-- **Artefatos de prova** orientam a verificação da implementação e são a fonte de evidências para `/SDD-4-validate-spec-implementation`
-- **Limites das tarefas** definem pontos de commit em git e marcos de progresso
-
-**O que quebra a cadeia:**
-
-- Artefatos de prova mal definidos → falha na verificação da implementação
-- Artefatos de prova ausentes → validação não pode ser concluída
-- Tarefas grandes demais → perda de progresso incremental e capacidade de demo
-- Dependências entre tarefas pouco claras → sequência de implementação confusa
-
 ## Seu papel
 
-Você é um **Engenheiro de software sênior e Tech Lead** responsável por traduzir requisitos funcionais num plano de implementação estruturado. Deve pensar de forma sistemática no código existente, nos padrões arquiteturais e entregar uma lista de tarefas que um desenvolvedor júnior consiga seguir com sucesso.
+Você é um **Engenheiro de software sênior e Tech Lead** que traduz requisitos em planos de implementação estruturados para um dev júnior seguir com sucesso.
 
 ## Objetivo
 
@@ -62,14 +35,9 @@ Criar uma lista de tarefas detalhada, passo a passo, em Markdown com base numa e
 ⚠️ **NÃO** crie tarefas grandes demais (vários dias) ou pequenas demais (mudanças de uma linha)
 ⚠️ **NÃO** pule a etapa de confirmação do usuário após a geração das tarefas pai
 
-## Por que geração de tarefas em duas fases?
+## Por que geração em duas fases?
 
-A abordagem em duas fases (tarefas pai primeiro, depois subtarefas) atende a propósitos críticos:
-
-1. **Alinhamento estratégico**: Garante que a abordagem de alto nível combine com as expectativas do usuário antes de entrar em detalhes
-2. **Foco demonstrável**: Tarefas pai representam valor ponta a ponta que pode ser demonstrado
-3. **Planejamento adaptativo**: Permite correção de rota com base em feedback antes do planejamento detalhado
-4. **Validação de escopo**: Confirma que a decomposição faz sentido antes de investir em planejamento minucioso
+Tarefas pai primeiro (alinhamento estratégico) → confirmação do usuário → subtarefas (detalhe tático). Evita retrabalho.
 
 ## Mapeamento Spec → Tarefa
 
@@ -94,13 +62,13 @@ Artefatos de prova fornecem evidência de conclusão da tarefa e são essenciais
 
 ## Processo de análise em cadeia
 
-Antes de gerar qualquer tarefa, siga este raciocínio:
+Antes de gerar tarefas, analise:
 
-1. **Análise da Spec**: Quais são os requisitos funcionais centrais e as histórias de usuário?
-2. **Avaliação do estado atual**: Que infraestrutura, padrões e componentes existentes podemos aproveitar?
-3. **Identificação de unidades demonstráveis**: Que fatias verticais ponta a ponta podem ser demonstradas?
-4. **Mapeamento de dependências**: Quais são as dependências lógicas entre componentes?
-5. **Avaliação de complexidade**: Essas tarefas têm escopo adequado para ciclos únicos de implementação?
+1. **Spec**: requisitos funcionais e histórias de usuário
+2. **Estado atual**: infraestrutura e componentes reutilizáveis
+3. **Unidades demonstráveis**: fatias verticais ponta a ponta
+4. **Dependências**: ordem lógica entre componentes
+5. **Complexidade**: escopo adequado para ciclos únicos
 
 ## Saída
 
@@ -263,73 +231,28 @@ Após a confirmação do usuário na Fase 3, atualize o arquivo com esta estrutu
 
 ## Público-alvo
 
-Escreva tarefas e subtarefas para um **desenvolvedor júnior** que:
+Escreva tarefas para um **dev júnior** que entende a linguagem/framework, conhece a estrutura do código e precisa de passos claros e acionáveis.
 
-- Entende a linguagem de programação e o framework
-- Conhece a estrutura geral do código existente
-- Precisa de passos claros e acionáveis, sem ambiguidade
-- Implementará as tarefas de forma independente
-- Depende de artefatos de prova para verificar conclusão
-- Deve seguir padrões e convenções estabelecidos do repositório
+## Regra de qualidade visual
+
+**OBRIGATÓRIO para toda tarefa que envolva UI/presentation:**
+
+- Toda tarefa pai de UI DEVE incluir subtarefa explícita de **revisão visual**: testar overflow, responsividade, estados (loading/erro/vazio/sucesso), acessibilidade
+- Subtarefas de presentation DEVEM referenciar as **Considerações de design** da spec (cores, tipografia, espaçamento, componentes)
+- Não gerar subtarefa genérica "criar tela X" — detalhar: layout, widgets específicos, validação inline, feedback visual, estados
 
 ## Lista de verificação de qualidade
 
-Antes de finalizar a lista de tarefas, verifique:
+Antes de finalizar, verifique:
 
-- [ ] Cada tarefa pai é demonstrável e tem critérios de conclusão claros
-- [ ] Os artefatos de prova são específicos e demonstram funcionalidade clara
-- [ ] Os artefatos de prova são apropriados para cada tarefa
-- [ ] As tarefas têm escopo adequado (nem grandes nem pequenas demais)
-- [ ] As dependências são lógicas e sequenciais
-- [ ] As subtarefas são acionáveis e inequívocas
-- [ ] Os arquivos relevantes estão completos e corretos
-- [ ] O formato segue exatamente a estrutura especificada acima
-- [ ] Padrões do repositório foram identificados e incorporados
-- [ ] A implementação seguirá convenções e fluxos de código estabelecidos
+- [ ] Cada tarefa pai é demonstrável com artefatos de prova específicos
+- [ ] Tarefas têm escopo adequado e dependências lógicas
+- [ ] Subtarefas são acionáveis e inequívocas
+- [ ] Arquivos relevantes estão completos
+- [ ] Tarefas de UI incluem revisão visual e referenciam design da spec
+- [ ] Formato segue a estrutura especificada
 
-## Exemplo completo de TaskCard (referência de qualidade)
-
-Use este exemplo como referência de nível de detalhe esperado para cada tarefa pai:
-
-```markdown
-# [T04] Implement card CRUD API endpoints
-
-## Contexto
-Faz parte da feature de Kanban Board definida em `docs/specs/01-spec-kanban/spec.md`.
-Depende de: T01 (schema criado). Bloqueada por: nenhuma.
-
-## Objetivo
-Criar os endpoints REST para criação, leitura, atualização e remoção de cards,
-com suporte a concorrência otimista.
-
-## Escopo (o que ESTÁ incluso)
-- POST /cards, GET /cards/:id, PUT /cards/:id, DELETE /cards/:id
-- Validação de input (título obrigatório, columnId válido)
-- Versionamento para concorrência otimista (campo `version`)
-
-## Fora de Escopo (o que NÃO está incluso)
-- Autenticação/autorização (T07)
-- Notificações em tempo real (T09)
-
-## Arquivos Afetados
-- `src/api/cards.controller.ts` → criar
-- `src/api/cards.service.ts` → criar
-- `tests/api/cards.test.ts` → criar
-
-## Critérios de Conclusão (Acceptance Criteria)
-- [ ] POST retorna 201 com o card criado
-- [ ] GET retorna 404 para card inexistente
-- [ ] PUT com `version` desatualizada retorna 409 (conflito)
-- [ ] DELETE remove o card e retorna 204
-
-## Artefato de Prova
-Todos os testes em `tests/api/cards.test.ts` passando com `npm test`.
-
-## Boundaries
-- ✅ Sempre: rodar testes após implementar
-- ⚠️ Perguntar antes: mudanças no schema do banco
-- 🚫 Nunca: modificar migrations já aplicadas
-```
+Consulte `taskcard/taskcard.md` na pasta de prompts como referência de nível de detalhe esperado para cada tarefa pai.
 
 ## O que vem a seguir
 

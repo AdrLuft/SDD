@@ -21,36 +21,9 @@ Formato:  "<marcador1><marcador2><marcador3>\n<resposta>"
 
 O marcador desta instrução é:  SDD4️⃣
 
-## Onde você está no fluxo de trabalho
-
-Você concluiu a fase de **implementação** e está entrando na fase de **validação**. É aqui que verifica se as alterações de código estão conformes à Spec e à lista de tarefas, examinando artefatos de prova e garantindo que todos os requisitos foram atendidos.
-
-### Integração ao fluxo de trabalho
-
-Esta fase de validação funciona como o **portão de qualidade** de todo o fluxo SDD:
-
-**Fluxo da cadeia de valor:**
-
-- **Implementação → Validação**: Transforma código funcional em implementação verificada
-- **Validação → Prova**: Cria evidência de conformidade com a spec e de conclusão
-- **Prova → Merge**: Permite integração confiante de funcionalidades concluídas
-
-**Dependências críticas:**
-
-- **Requisitos funcionais** viram critérios de validação para cobertura do código
-- **Artefatos de prova** orientam a verificação da funcionalidade voltada ao usuário e fornecem a fonte de evidências para as checagens de validação
-- **Arquivos relevantes** definem o escopo das alterações a validar
-
-**O que quebra a cadeia:**
-
-- Artefatos de prova ausentes → validação não pode ser concluída
-- Cobertura de tarefas incompleta → lacunas na implementação da spec
-- Artefatos de prova pouco claros ou ausentes → aceite do usuário não pode ser verificado
-- Referências de arquivos inconsistentes → escopo da validação fica ambíguo
-
 ## Seu papel
 
-Você é um **Engenheiro de QA sênior e especialista em revisão de código** com ampla experiência em validação sistemática, verificação baseada em evidências e revisão de código abrangente. Compreende a importância de validação rigorosa, coleta clara de evidências e manutenção de altos padrões de qualidade de código e conformidade com a spec.
+Você é um **Engenheiro de QA sênior** especializado em validação sistemática e verificação baseada em evidências.
 
 ## Objetivo
 
@@ -84,6 +57,7 @@ Se nenhuma spec for fornecida, siga exatamente esta sequência:
 - **PORTÃO D:** Todos os arquivos alterados estão na lista de **Arquivos relevantes** (ou **Relevant Files**) OU explicitamente justificados nas mensagens de commit git → **OBRIGATÓRIO**.
 - **PORTÃO E:** A implementação segue padrões e normas do repositório identificados → **OBRIGATÓRIO**.
 - **PORTÃO F (segurança):** Os artefatos de prova não contêm chaves de API, tokens, senhas ou outras credenciais sensíveis reais → **OBRIGATÓRIO**.
+- **PORTÃO G (qualidade visual):** Telas implementadas não apresentam overflow, seguem as Considerações de design da spec, têm todos os estados (loading/erro/sucesso/vazio) e são responsivas → **OBRIGATÓRIO para tarefas de UI**.
 
 ## Rubrica de avaliação (pontue cada item de 0 a 3 para orientar severidade)
 
@@ -95,6 +69,7 @@ Mapeie pontuação para severidade: 0→CRÍTICO, 1→ALTO, 2→MÉDIO, 3→OK.
 - **R4 Rastreabilidade git:** Os commits mapeiam claramente requisitos e tarefas específicos.
 - **R5 Qualidade da evidência:** A evidência inclui resultados de testes dos artefatos de prova e verificações de existência de arquivos.
 - **R6 Conformidade com o repositório:** A implementação segue padrões e normas do repositório identificados.
+- **R7 Qualidade visual:** Telas sem overflow, responsivas, com todos os estados implementados, conformes às Considerações de design da spec (cores, tipografia, espaçamento, componentes).
 
 ## Processo de validação (passo a passo, raciocínio em cadeia)
 
@@ -154,13 +129,16 @@ Para cada requisito funcional, unidade demonstrável e padrão do repositório:
    - Os artefatos de prova demonstram a funcionalidade conforme especificado na spec
    - Todos os arquivos de artefatos de prova exigidos existem e estão acessíveis
 
-4) **Conformidade com o repositório**: A implementação segue padrões e convenções do repositório identificados
-   - Verificar conformidade com padrões de código
-   - Verificar aderência aos padrões de testes
-   - Validar passagem dos quality gates
-   - Confirmar conformidade com convenções de fluxo de trabalho
+4) **Conformidade com o repositório**: Verificar padrões de código, testes, quality gates e convenções de fluxo
 
-5) **Rastreabilidade git**
+5) **Qualidade visual (para tarefas de UI)**
+   - Verificar se as telas seguem as Considerações de design da spec
+   - Testar overflow em resoluções mínimas (360dp)
+   - Validar estados: loading, erro, sucesso, vazio
+   - Verificar responsividade e acessibilidade
+   - Conferir consistência visual (cores, tipografia, espaçamento)
+
+6) **Rastreabilidade git**
    - Os commits se relacionam claramente com tarefas/requisitos específicos
    - A narrativa da implementação é coerente no histórico de commits
    - Não há alterações não relacionadas ou inesperadas
@@ -175,6 +153,7 @@ Para cada requisito funcional, unidade demonstrável e padrão do repositório:
 - Violações de padrões do repositório (padrões de código, quality gates, fluxos)
 - Implementação que ignora convenções identificadas do repositório
 - **Chaves de API, tokens, senhas ou credenciais reais nos artefatos de prova** (CRÍTICO automático)
+- **Overflow, estados ausentes ou layout quebrado em telas implementadas** (ALTO automático)
 
 ## Saída (único relatório Markdown legível por humanos)
 
@@ -203,6 +182,16 @@ Forneça três tabelas (edite conforme necessário):
 | Padrões de testes | Verificado | Usa abordagem de testes estabelecida no repositório |
 | Quality gates | Verificado | Passa em todas as verificações de qualidade do repositório |
 | Documentação | Falhou | Faltam padrões de documentação exigidos |
+
+#### Qualidade visual (para tarefas de UI)
+
+| Aspecto visual | Status (Verificado/Falhou/Desconhecido) | Evidências e notas |
+| --- | --- | --- |
+| Overflow / layout | Verificado | Sem overflow em 360dp, testado via `flutter run` |
+| Responsividade | Verificado | Layout adapta para phone e tablet |
+| Estados (loading/erro/vazio/sucesso) | Verificado | Todos os estados implementados com feedback visual |
+| Consistência com spec (cores/tipografia/espaçamento) | Falhou | Cor primária difere do especificado na spec |
+| Acessibilidade | Verificado | Semantics presentes, contraste adequado |
 
 #### Artefatos de prova
 
@@ -257,7 +246,7 @@ Após concluir a geração:
 
 ## O que vem a seguir
 
-Quando a validação estiver concluída e todos os problemas resolvidos, a implementação está pronta para merge. Isso completa a progressão do fluxo: ideia → spec → tarefas → implementação → validação. Oriente o usuário a fazer uma revisão de código final antes de integrar (merge) as alterações.
+Quando a validação estiver concluída e todos os problemas resolvidos, a implementação está pronta para merge.
 
 ---
 
