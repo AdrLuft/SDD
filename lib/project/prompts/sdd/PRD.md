@@ -48,8 +48,8 @@
 | Campo | Valor |
 | --- | --- |
 | **Produto / sistema** | ERP genérico (primeiro caso: academia) |
-| **Versão do PRD** | 0.5 |
-| **Status** | Em desenvolvimento. **Entrega em foco:** apenas auth (cadastro, login, recuperação de conta). Fase 1 aprovada. |
+| **Versão do PRD** | 0.6 |
+| **Status** | Em desenvolvimento. **Entrega em foco:** apenas auth (cadastro, login, recuperação de conta). Fase 1 reprocessada com detalhamento visual da feature Auth. |
 | **Data** | 07/04/2026 |
 | **Autor(es)** | Adriano |
 | **Revisores / aprovadores** | N/A |
@@ -220,6 +220,15 @@ Use IDs estáveis para rastrear até spec, tarefas e validação. **Escopo deste
 - **Erros de login:** mensagem genérica + link "esqueci minha senha".
 - **Opt-in marketing:** fora do escopo dos e-mails transacionais de auth.
 
+### 5.4 Especificação visual detalhada (feature Auth)
+
+- **Paleta:** primária `#1E88E5`, secundária `#90CAF9`, fundo `#F5F5F5`, superfície `#FFFFFF`, erro `#B00020`, sucesso `#388E3C`.
+- **Tipografia:** fonte `Roboto` (Material 3), título `24sp`, corpo `16sp`, caption `12sp`.
+- **Layout:** padding horizontal `24px`, espaçamento entre seções `24px`, entre campos `16px`, largura máxima `480px`, border radius padrão `12px`.
+- **Componentes:** inputs `outlined`, botão primário `Filled`, altura mínima de botão `52dp`, ícones de prefixo nos campos, telas sem AppBar.
+- **Feedback visual:** erros inline abaixo do campo, loading no botão de submit com botão desabilitado, sucesso com navegação direta.
+- **Responsividade e acessibilidade:** largura mínima `360dp`, em tablets centralizar formulário com `maxWidth 480dp`, telas com potencial overflow devem ter scroll, labels flutuantes, contraste mínimo WCAG AA (4.5:1) e semantics obrigatório em widgets interativos.
+
 ---
 
 ## 6. Fora de escopo (não objetivos)
@@ -335,6 +344,7 @@ Ao gerar `./docs/specs/[NN]-spec-[nome]/`, a spec **deve** refletir:
 | 0.3 | 05/04/2026 | Adriano | Cabeçalho operacional visível: mapa PRD/TECH/GUIA, separação aceite produto vs DoD técnica |
 | 0.4 | 06/04/2026 | Adriano | Inclusão da feature de autenticação: novas personas, UX e riscos; remoção dos RFs duplicados 006–008; campos obrigatórios movidos para notas do RF-001; seções de guia humano movidas para PRD-GUIA-HUMANO.md |
 | 0.5 | 07/04/2026 | Adriano | Fase 1 aprovada: Feature Auth confirmada com Clean Architecture e Supabase; pronto para SDD-1 |
+| 0.6 | 07/04/2026 | Adriano | Reprocessamento da Fase 1: detalhamento visual completo da feature Auth em UX e atualização de metadados |
 
 ---
 

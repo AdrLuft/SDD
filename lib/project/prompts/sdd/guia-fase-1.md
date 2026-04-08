@@ -78,6 +78,12 @@ REQUISITOS FUNCIONAIS P0 (obrigatórios)
 - O sistema deve manter sessão ativa até logout explícito ou expiração
 - O sistema deve permitir logout que encerra a sessão no cliente e invalida no servidor
 
+FLUXO DE NAVEGAÇÃO PÓS-AUTH
+  - Após login bem-sucedido: [/home]
+  - Após cadastro bem-sucedido: [/login]
+  - App aberto com sessão ativa: [redireciona direto para /home, ignora tela de login]
+  - App aberto sem sessão: [exibe tela de login]
+
 FORA DE ESCOPO desta feature
 - Login social (Google, Apple) — será feature separada se priorizado
 - 2FA / biometria — complexidade desnecessária no MVP
@@ -94,46 +100,46 @@ estado de loading visível no botão de submit durante requisições
 ESPECIFICAÇÃO VISUAL DETALHADA (preencha o máximo possível)
 
 Paleta de cores:
-  - Cor primária (hex ou nome): [ex.: #1E88E5 / azul]
-  - Cor secundária: [ex.: #FFC107 / âmbar]
-  - Cor de fundo: [ex.: #FAFAFA]
-  - Cor de superfície (cards/forms): [ex.: #FFFFFF]
-  - Cor de erro: [ex.: #D32F2F]
-  - Cor de sucesso: [ex.: #388E3C]
+  - Cor primária (hex ou nome): [#1E88E5 / azul]
+  - Cor secundária: [#90CAF9 / azul claro]
+  - Cor de fundo: [#F5F5F5]
+  - Cor de superfície (cards/forms): [#FFFFFF]
+  - Cor de erro: [#B00020]
+  - Cor de sucesso: [#388E3C]
 
 Tipografia:
-  - Fonte principal: [ex.: Roboto / Poppins / Inter / padrão Material]
-  - Tamanho título: [ex.: 24sp]
-  - Tamanho corpo: [ex.: 16sp]
-  - Tamanho caption: [ex.: 12sp]
+  - Fonte principal: [Roboto — padrão Material 3]
+  - Tamanho título: [24sp]
+  - Tamanho corpo: [16sp]
+  - Tamanho caption: [12sp]
 
 Layout e espaçamento:
-  - Padding horizontal das telas: [ex.: 24px]
-  - Espaçamento entre seções: [ex.: 24px]
-  - Espaçamento entre campos de form: [ex.: 16px]
-  - Largura máxima do conteúdo (se centralizar em telas grandes): [ex.: 480px]
-  - Border radius padrão (cards, botões, inputs): [ex.: 12px]
+  - Padding horizontal das telas: [24px]
+  - Espaçamento entre seções: [24px]
+  - Espaçamento entre campos de form: [16px]
+  - Largura máxima do conteúdo (se centralizar em telas grandes): [480px]
+  - Border radius padrão (cards, botões, inputs): [12px]
 
 Componentes:
-  - Estilo dos inputs: [filled / outlined / underline]
-  - Estilo do botão primário: [filled / elevated / tonal]
-  - Altura mínima dos botões: [ex.: 48dp]
-  - Ícones nos campos de input: [sim, prefixo / sim, sufixo / não]
-  - AppBar: [com título centralizado / com logo / sem AppBar]
+  - Estilo dos inputs: [outlined]
+  - Estilo do botão primário: [Filled]
+  - Altura mínima dos botões: [52dp]
+  - Ícones nos campos de input: [sim, prefixo]
+  - AppBar: [sem AppBar]
 
 Feedback visual:
-  - Erros de validação: [inline abaixo do campo / snackbar / dialog]
-  - Loading durante submit: [indicador no botão / overlay na tela / ambos]
-  - Sucesso: [navega direto / snackbar + navega / dialog]
-  - Estado vazio: [ilustração + texto / só texto / widget dedicado]
+  - Erros de validação: [inline abaixo do campo]
+  - Loading durante submit: [loading indicator dentro do botão de submit, botão desabilitado durante requisição]
+  - Sucesso: [navega direto]
+  - Estado vazio: [não se aplica às telas de auth — padrão reservado para módulos com listagens]
 
 Responsividade:
-  - Tela mínima suportada: [ex.: 360dp largura]
-  - Comportamento em tablets: [centralizar form / expandir layout / sidebar]
+  - Tela mínima suportada: [360dp largura]
+  - Comportamento em tablets: [centralizar form com maxWidth 480dp]
   - Scroll: [telas que podem ultrapassar viewport DEVEM ter scroll]
 
 Acessibilidade:
-  - Labels nos campos: [sempre visíveis / floating / placeholder only — NÃO usar só placeholder]
+  - Labels nos campos: [floating ]
   - Contraste mínimo: [WCAG AA = 4.5:1]
   - Semantics em widgets interativos: [obrigatório]
 
@@ -142,7 +148,7 @@ MUDA ALGO NA STACK / ARQUITETURA?
 
 Novo pacote: supabase_flutter — cliente oficial Supabase para auth e BaaS
 Novo pacote: get — gerenciamento de estado e navegação (GetX)
-Novo pacote: crypto — hash de dados sensíveis se necessário
+Novo pacote: crypto — hash local de dados antes de envio (campos PII como CPF)
 Novo pacote: validatorless — validação declarativa de formulários
 Novo pacote: flutter_secure_storage — persistência segura de tokens de sessão
 
@@ -205,6 +211,8 @@ lib/
 | 8 | Criar botão/campo sem altura mínima de 48dp | Touch targets pequenos prejudicam usabilidade mobile |
 | 9 | Criar tela sem implementar TODOS os estados (loading, erro, sucesso, vazio) | Telas incompletas geram bugs visuais e UX ruim |
 | 10 | Usar apenas placeholder como label de campo (sem label flutuante/fixa) | Acessibilidade exige labels permanentemente visíveis |
+| 11 | Navegar para rota protegida sem verificar sessão ativa | 
+Toda rota autenticada DEVE passar por um AuthGuard/middleware GetX antes de renderizar — nunca confiar só no estado local |
 
 ### Camadas e responsabilidades
 

@@ -28,7 +28,7 @@ Sem nova ADR em §4.4, sem mudança de backend em §7 e sem novas env vars em §
 | Campo | Valor |
 | --- | --- |
 | **Repositório** | Raiz do workspace (ex.: `C:/Projetos/<nome-do-projeto>`) |
-| **Versão do doc** | 0.6 |
+| **Versão do doc** | 0.7 |
 | **Última atualização** | 2026-04-07 |
 | **Dono técnico** | Adriano |
 | **Stack principal** | Flutter (Dart SDK — ver `pubspec.yaml` → `environment.sdk`) |
@@ -178,7 +178,7 @@ UI (Widgets) → (futuro) camada de aplicação / estado → (futuro) cliente HT
 
 - **Framework:** Flutter (Material 3 via `ThemeData` em `main.dart`).
 - **Roteamento:** `MaterialApp` padrão; evoluir para `go_router` ou equivalente **só** se a spec listar o pacote e a migração.
-- **Estado:** `StatefulWidget` hoje; para auth, preferir padrão definido na spec (ex.: `GetX`) — **não adicionar** pacote de estado sem decisão na spec.
+- **Estado:** para a feature Auth, padrão adotado `GetX` (estado e navegação) conforme PRD e guia da fase; fora do escopo da feature, manter consistência do código existente e evitar migração global sem decisão explícita.
 - **Acessibilidade:** Semantics e foco nos fluxos de formulário (cadastro/login/recuperação), alinhado ao PRD.
 - **i18n:** Português pode ser hardcoded no MVP; extrair ARB depois se a spec pedir.
 - **Persistência:** Usar `flutter_secure_storage` para tokens de sessão.
@@ -317,6 +317,7 @@ Recomendado: [Conventional Commits](https://www.conventionalcommits.org/) em **p
 | 0.4 | 2026-04-06 | Adriano | Inclusão da feature de autenticação: variáveis de ambiente, ADRs 002–003, Supabase e persistência segura |
 | 0.5 | 2026-04-06 | Adriano | Correção de todos os paths (remover prefixo `sdd/`), atualização de arquitetura para Clean Architecture, novos anti-padrões |
 | 0.6 | 2026-04-07 | Adriano | Fase 1 aprovada: estrutura `lib/features/auth/` explicitamente mapeada; pronto para implementação em SDD-1 |
+| 0.7 | 2026-04-07 | Adriano | Reprocessamento da Fase 1: explicitação do padrão GetX para estado/navegação da feature Auth |
 
 ---
 
